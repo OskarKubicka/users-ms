@@ -1,3 +1,20 @@
 {"level":"info","timestamp":"2023-10-25 11:41:15"}
 {"level":"info","message":"[undefined] Bootstrapping micro service","timestamp":"2023-10-25 11:41:16"}
 {"level":"info","message":"[Express] server running at http://undefined:undefined/","timestamp":"2023-10-25 11:41:16"}
+{"level":"info","timestamp":"2023-10-25 13:19:46"}
+{"level":"info","message":"[undefined] Bootstrapping micro service","timestamp":"2023-10-25 13:19:47"}
+{"level":"info","message":"[Express] server running at http://undefined:undefined/","timestamp":"2023-10-25 13:19:47"}
+{"level":"info","timestamp":"2023-10-25 13:31:00"}
+{"level":"info","message":"[undefined] Bootstrapping micro service","timestamp":"2023-10-25 13:31:00"}
+{"level":"info","message":"[Express] server running at http://undefined:undefined/","timestamp":"2023-10-25 13:31:00"}
+{"level":"info","timestamp":"2023-10-25 13:43:12"}
+{"level":"info","message":"[undefined] Bootstrapping micro service","timestamp":"2023-10-25 13:43:13"}
+{"level":"info","message":"[Express] server running at http://undefined:undefined/","timestamp":"2023-10-25 13:43:13"}
+{"level":"info","timestamp":"2023-10-25 14:04:51"}
+{"level":"info","message":"[POST][USE-CASE] Inserting object process - START!","timestamp":"2023-10-25 14:04:51"}
+{"level":"info","message":"[POST][USE-CASE] Inserting object process - START!","timestamp":"2023-10-25 14:04:53"}
+{"level":"info","message":"[POST][USE-CASE] Inserting object process - START!","timestamp":"2023-10-25 14:04:53"}
+{"level":"info","message":"[POST][USE-CASE] Inserting object process - START!","timestamp":"2023-10-25 14:04:53"}
+{"level":"info","message":"[POST][USE-CASE] Inserting object process - START!","timestamp":"2023-10-25 14:04:53"}
+{"level":"info","message":"[POST][USE-CASE] Inserting object process - START!","timestamp":"2023-10-25 14:04:55"}
+{"level":"info","message":"[MONGODB] Dropping DB db_my_app_test...","timestamp":"2023-10-25 14:04:57"}
