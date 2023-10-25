@@ -1,33 +1,33 @@
 import { logger } from '../../libs/logger';
-import { post } from '../use-cases';
-import { get } from '../use-cases';
-const baseUrl = '/api/v1';
+import { post, get } from '../use-cases';
 
-const getEP = async (req, res) => {
+const baseUrl = '/api/v1/user';
+
+const getUsersEP = async (req, res) => {
   try {
     const results = await get({ params: req.params });
     res.json({ err: 0, data: results });
   } catch (err) {
-    logger.info(`[EP][GET] ${req.method }: ${err.message}`)
+    logger.error(`[EP][GET] ${req.method }: ${ err }`)
     res.status(403)
     res.json({err: 1, data: { err }})
    }
 }
 
-const postEP = async (req, res) => {
+const registerUserEP = async (req, res) => {
   try { 
     let results = await post({ params: req.body });
     res.json({ err: 0, data: results });
   } catch (err) {
-    logger.info(`[EP][POST] ${req.method }: ${err.message}`)
+    logger.error(`[EP][POST] ${req.method }: ${err.message}`)
     res.status(403)
-    res.json({err: 1, data: { err }})
+    res.json({ err: 1, data: err.message })
    }
 }
 
 const routes = [
-  { path: `${baseUrl}/`, method: 'get', component: getEP },
-  { path: `${baseUrl}/`, method: 'post', component: postEP }
+  { path: `${baseUrl}/username/:username?/email/:email?`, method: 'get', component: getUsersEP },
+  { path: `${baseUrl}/`, method: 'post', component: registerUserEP }
 ];
 
 export {

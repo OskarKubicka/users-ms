@@ -1,11 +1,12 @@
 export default function makeInputObjectFactory({ md5, sanitize }) {
   return Object.freeze({ inputObj })
   let localErrorMsgs = {};
-  function inputObj({ params, errorMsgs }) {
+  function inputObj({ params, errorMsgs }){
     const {
       username,
       password,
       email,
+      role,
       created = Date.now(),
       modified = Date.now()
     } = params;
@@ -14,24 +15,17 @@ export default function makeInputObjectFactory({ md5, sanitize }) {
       username: () => checkUsername({ username, errorMsgs }),
       password: () => checkPassword({ password, errorMsgs }),
       email: () => checkEmail({ email, errorMsgs }),
+      role: () => checkRole({ role }),
+      usernameHash: () => hash({ param: username }),
+      emailHash: () => hash({ param: email }),
+      usernamePasswordHash: () => hash({ param: username + password }),
       created: () => created,
       modified: () => modified
     })
   }
 
-  function checkEmail({ email, errorMsgs }) {
-
-    // Regular expression pattern to match a valid email address
-    {
-      const emailPattern = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
-      if (emailPattern.test(email) == false) {
-        throw new Error(`${errorMsgs}.Email`)
-      }
-      else {
-        email = sanitize(email)
-      }
-    }
-    return email
+  function checkRole({ role }) {
+    return role in ['user', 'admin'] ? role : 'user';
   }
 
   function checkUsername({ username, errorMsgs }) {
@@ -41,18 +35,7 @@ export default function makeInputObjectFactory({ md5, sanitize }) {
       errorMsgs
     });
     username = sanitize(username);
-    if (
-      username.length <= 4 ||
-      username.length >= 25 ||
-      !username.match(/[a-z0-9_]/i) ||
-      !username.split('')[0].match(/[a-z]/gi) ||
-      username.split('')[username.length - 1] === '_'
-    ) {
-      throw new Error(`${errorMsgs}.ChangeUsername`)
-    }
-    else {
-      return username
-    }
+    return username;
   }
 
   function checkPassword({ password, errorMsgs }) {
@@ -61,18 +44,35 @@ export default function makeInputObjectFactory({ md5, sanitize }) {
       paramName: 'password',
       errorMsgs
     });
-    password = sanitize(password);
-    password = hash({ param: password });
+    password = md5(password);
     return password;
   }
 
+  function checkEmail({ email, errorMsgs }) {
+    checkRequiredParam({
+      param: email,
+      paramName: 'email',
+      errorMsgs
+    });
+    email = sanitize(email);
+    if (!isEmail({ email })) throw new Error(errorMsgs.INVALID_EMAIL);
+
+    return email;
+  }
+  
   function hash({ param }) {
+    sanitize(param);
     return md5(param);
+  }
+
+  function isEmail({ email }) {
+    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
   }
 
   function checkRequiredParam({ param, paramName, errorMsgs }) {
     if (!param || param === '')
-      throw new Error(`${errorMsgs.MISSING_PARAMETER}${paramName}`)
+      throw new Error(`${ errorMsgs.MISSING_PARAMETER }${paramName}`)
     return;
-  }
+   }
 }

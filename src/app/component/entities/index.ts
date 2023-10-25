@@ -1,7 +1,7 @@
 import * as crypto from 'crypto';
 import * as sanitize from 'sanitize-html';
 import config from '../../config'
-import makeInputObjFactory from './make-input-object'
+import makeInputObjFactory from './make-input-object';
 import makeOutputObjFactory from './make-output-object';
 
 const errorMsgs = config.ERROR_MSG.post;
