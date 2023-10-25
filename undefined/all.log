@@ -1,0 +1,3 @@
+{"level":"info","timestamp":"2023-10-25 11:41:15"}
+{"level":"info","message":"[undefined] Bootstrapping micro service","timestamp":"2023-10-25 11:41:16"}
+{"level":"info","message":"[Express] server running at http://undefined:undefined/","timestamp":"2023-10-25 11:41:16"}
